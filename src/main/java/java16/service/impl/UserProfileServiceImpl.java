@@ -5,6 +5,8 @@ import java16.dao.impl.UserProfileDaoImpl;
 import java16.entities.UserProfile;
 import java16.service.UserProfileService;
 
+import java.time.LocalDate;
+
 public class UserProfileServiceImpl implements UserProfileService {
 UserDaoProfile userDaoProfile = new UserProfileDaoImpl();
 
@@ -18,6 +20,7 @@ UserDaoProfile userDaoProfile = new UserProfileDaoImpl();
        userDaoProfile.getUserProfileById(id);
     }
 
+
     @Override
     public void updateUserProfileEmail(long id, String email) {
          userDaoProfile.updateUserProfileEmail(id, email);
@@ -29,12 +32,13 @@ UserDaoProfile userDaoProfile = new UserProfileDaoImpl();
     }
 
     @Override
-    public void findUserByEmail() {
-
+    public void findUserByEmail(String email) {
+      userDaoProfile.findUserByEmail(email);
     }
 
     @Override
-    public void getUsersRegisteredAfterDate() {
-
+    public String getUsersRegisteredAfterDate(LocalDate localDate) {
+      userDaoProfile.getUsersRegisteredAfterDate(localDate);
+      return "Successfully get users registered after date";
     }
 }

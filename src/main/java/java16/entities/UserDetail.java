@@ -11,25 +11,43 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+
+@ToString(exclude = "userProfile")
 public class UserDetail {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "detail_gen")
-    @SequenceGenerator(name="detail_gen",sequenceName = "detail_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "detail_gen")
+    @SequenceGenerator(name = "detail_gen", sequenceName = "detail_seq", allocationSize = 1)
     private Long id;
 
-    private String userName;
+    private String full_name;
+    private LocalDate dateOfBirth;
     private String address;
-    private LocalDate registrationDate;
 
+//    @ToString(exclude = "userProfile")
+    @OneToOne( cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+    private UserProfile userProfile;
 
-    @OneToOne
-    private UserProfile profile;
-
-    public UserDetail(String userName, String address, LocalDate registrationDate, UserProfile profile) {
-        this.userName = userName;
+    public UserDetail(String full_name, LocalDate dateOfBirth, String address, UserProfile userProfile) {
+        this.full_name = full_name;
+        this.dateOfBirth = dateOfBirth;
         this.address = address;
-        this.registrationDate = registrationDate;
-        this.profile = profile;
+        this.userProfile = userProfile;
     }
+
+    public  UserDetail(Long id){
+        this.id = id;
+    }
+
+
+//    @Override
+//    public String toString() {
+//        return "UserDetail{" +
+//                "id=" + id +
+//                ", full_name='" + full_name + '\'' +
+//                ", dateOfBirth=" + dateOfBirth +
+//                ", address='" + address + '\'' +
+//                ", userProfile=" + userProfile +
+//                '}';
+//    }
 }
+
